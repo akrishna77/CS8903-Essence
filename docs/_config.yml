@@ -1,0 +1,27 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Visual Essence
+tagline:          
+description:      
+url:              
+baseurl:          /
+
+author:
+  name:           
+  url:            
+
+plugins: [jekyll-paginate]
+paginate: 5
+paginate_path: "page:num"
+
+# Custom vars
+version:          2.1.0
+
+github:
+  repo:           https://github.com/akrishna77/CS8903-Essence
