@@ -1,5 +1,5 @@
 # Dependencies
-markdown:         redcarpet
+# markdown:         redcarpet
 highlighter:      pygments
 
 # Permalinks
@@ -10,7 +10,7 @@ title:            Visual Essence
 tagline:          
 description:      
 url:              
-baseurl:          /
+baseurl:          
 
 author:
   name:           
