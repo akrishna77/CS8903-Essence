@@ -20,7 +20,7 @@ for i in os.listdir('../FinalOutputs/essence'):
 <table><tr><td><img src='../FinalOutputs/essence/essence-10.jpg'></td></tr></table>
 
 
-    ['lover', 'relaxed love', 'weird'] 
+    ['lover', 'animals', 'weird'] 
 
 
 
