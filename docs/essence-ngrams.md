@@ -3,6 +3,8 @@ layout: page
 title: Essence - ngrams
 ---
 
+Taking uni & bigrams into consideration for TF-IDF.
+
 ```python
 for i in range(50):
     print(desc_array[i])

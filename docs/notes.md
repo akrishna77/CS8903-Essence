@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Thoughts
+title: Notes
 ---
 
 ### NLP aspects

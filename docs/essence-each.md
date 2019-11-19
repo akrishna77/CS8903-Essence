@@ -3,6 +3,9 @@ layout: page
 title: Essence - Individual Results
 ---
 
+
+Treating answer to each question separately for TF-IDF.
+
 ```python
 for i in range(50):
     print(desc_array[i])

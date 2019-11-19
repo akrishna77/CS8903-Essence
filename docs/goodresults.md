@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Final Results
+title: Good Results (Essence + Style)
 ---
-
 
 
 ```python

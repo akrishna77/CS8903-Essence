@@ -3,6 +3,8 @@ layout: page
 title: Essence - All Results
 ---
 
+Using all 50 answers for TF-IDF.
+
 ```python
 from IPython.display import Image, display, HTML
 ```
@@ -15,9 +17,6 @@ for i in desc_array:
     desc_emotions.append((i, lbl_enc.classes_[desc_emotion_pred[k]]))
     k += 1
 ```
-
-## Essence - All
-
 
 ```python
 # for i in range(50):
