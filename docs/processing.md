@@ -691,6 +691,9 @@ data = data.drop(data[data.sentiment == 'empty'].index)
 data = data.drop(data[data.sentiment == 'fun'].index)
 data = data.drop(data[data.sentiment == 'relief'].index)
 data = data.drop(data[data.sentiment == 'surprise'].index)
+data = data.drop(data[data.sentiment == 'sadness'].index)
+data = data.drop(data[data.sentiment == 'fun'].index)
+data = data.drop(data[data.sentiment == 'enthusiasm'].index)
 
 # Making all letters lowercase
 data['content'] = data['content'].apply(lambda x: " ".join(x.lower() for x in x.split()))
@@ -747,13 +750,11 @@ list(enumerate(lbl_enc.classes_))
 
 
     [(0, 'anger'),
-     (1, 'enthusiasm'),
-     (2, 'happiness'),
-     (3, 'hate'),
-     (4, 'love'),
-     (5, 'neutral'),
-     (6, 'sadness'),
-     (7, 'worry')]
+     (1, 'happiness'),
+     (2, 'hate'),
+     (3, 'love'),
+     (4, 'neutral'),
+     (5, 'worry')]
 
 
 
@@ -772,16 +773,9 @@ y_pred = logreg.predict(X_val_count)
 print('log reg count vectors accuracy %s' % accuracy_score(y_pred, y_val))
 ```
 
-    lsvm using count vectors accuracy 0.41032527603700386
+    lsvm using count vectors accuracy 0.5070677781805002
 
-
-    //anaconda3/envs/cs231n/lib/python3.7/site-packages/sklearn/linear_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
-      FutureWarning)
-    //anaconda3/envs/cs231n/lib/python3.7/site-packages/sklearn/linear_model/logistic.py:469: FutureWarning: Default multi_class will be changed to 'auto' in 0.22. Specify the multi_class option to silence this warning.
-      "this warning.", FutureWarning)
-
-
-    log reg count vectors accuracy 0.40704267382870785
+    log reg count vectors accuracy 0.501268575570859
 
 
 
@@ -792,6 +786,276 @@ desc_emotion_pred = lsvm.predict(desc_count_vectors)
 print(desc_emotion_pred)
 ```
 
-    [4 4 5 4 7 7 2 2 7 7 4 5 4 5 5 2 4 4 6 7 4 2 2 4 4 7 7 4 7 4 4 4 4 2 2 7 4
-     4 4 4 4 4 2 4 5 4 5 4 4 2]
+    [3 3 4 3 5 5 4 1 5 3 3 4 3 4 4 1 3 5 5 5 3 1 1 1 3 5 5 3 5 3 3 3 3 5 1 5 3
+     3 3 3 3 3 1 3 5 3 4 3 3 1]
 
+
+
+```python
+from IPython.display import Image, display, HTML
+```
+
+
+```python
+desc_emotions = []
+k = 0
+for i in desc_array:
+    desc_emotions.append((i, lbl_enc.classes_[desc_emotion_pred[k]]))
+    k += 1
+```
+
+
+```python
+desc_emotions
+```
+
+
+
+
+    [(['Person 1',
+       'I am a 28-year-old woman living in Massachusetts.',
+       "I'm neurotic and eccentric but good at heart.",
+       'I am obsessed with rabbits and love technology.'],
+      'love'),
+     (['Person 2',
+       'I am dedicated and persistent and willing to go the extra mil',
+       "'m fun loving and like to make people laugh by telling jokes and making light of situations",
+       'I am insightful and am able to fit together pieces to understand the big pictur'],
+      'love'),
+     (['Person 3',
+       'I am a feminist, a student, and a homosexual.',
+       'I am kind, nurturing, caring, and genuine.',
+       'My honesty, my loyalty, and my generosity make me me.'],
+      'neutral'),
+     (['Person 4',
+       "I'm an immigrant who became a citizen of the United States. I'm an American.",
+       "I can be stubborn and stand-offish, but I still care very much about my friends and family. I'm a nerd about movies/tvshows/books. I love video games and prefer to stay home.",
+       "I'm introverted, so I need time alone to recharge and recalibrate."],
+      'love'),
+     (['Person 5',
+       "I'm a boring person",
+       "I'm quiet and introspective.",
+       'I have deep wells of sorrow.'],
+      'worry'),
+     (['Person 6',
+       'I am a girl who lives in New York City in my twenties who is incredibly close with my family.',
+       'I am very social and outgoing.',
+       'I am outgoing and care tremendously about my friends.'],
+      'worry'),
+     (['Person 7',
+       'I am a mom of 3',
+       'I like R &B Music, Japanese Food, Pizz',
+       'I am sympathetic.'],
+      'neutral'),
+     (['Person 8',
+       'I am a licensed counselor.',
+       "I'm silly and funny.",
+       "I'm fun and sarcastic a lot of the time."],
+      'happiness'),
+     (['Person 9',
+       "I'm Jim, a 53 year old american man",
+       "I'm forceful, happy, calm and occasionally grumpy with a touch of sarcasm.",
+       "I'm a drivan dominant at work and play. My wife is essential to my life. I'd be lost without her grounding me."],
+      'worry'),
+     (['Person 10',
+       "I'm a fat, biracial bisexual woman.",
+       "I'm a funny depressive--aren't all depressives a riot?",
+       "I'm a boring drudge, not glamorous or fancy, but fairly dependable."],
+      'love'),
+     (['Person 11',
+       'I am an adventurous geeky skydiv',
+       'I am fun-loving and love life.',
+       'I am intelligent and caring.'],
+      'love'),
+     (['Person 12',
+       "I am a person who believes that honesty and integrity is very important in today's society and world.",
+       'I am a person who is warm and sensitive to the feelings of others.',
+       'I see myself as one who you can count when the chips are down.'],
+      'neutral'),
+     (['Person 13',
+       "I am shy from those whom I don't know yet energetic and caring to those whom I do know.",
+       'I am a very happy and appreciate all life equally.',
+       'God is an important part of who I am. He allows me to me loving to all creatures no matter how small.'],
+      'love'),
+     (['Person 14',
+       'I am a human',
+       'I am curious and interested in urban',
+       'My passion for cities and cultur'],
+      'neutral'),
+     (['Person 15',
+       'I am a musician',
+       'm very laidback, easy going and unbrainwashed.',
+       'Making music makes me tick.'],
+      'neutral'),
+     (['Person 16',
+       'I am a middle aged woman.',
+       'I am easy-going, caring, and nurturing.',
+       "My essence is that I care a great deal about others to the point that I don't take care of myself."],
+      'happiness'),
+     (['Person 17',
+       'A male human being with a kind and loving personality.',
+       'Video Games and food',
+       'Humble, Kind, Loving'],
+      'love'),
+     (['Person 18',
+       'I am a mother, wife, and friend',
+       'I am like the shoulder you can cry on, or a listening ear.',
+       'My family makes me me!'],
+      'worry'),
+     (['Person 19',
+       'I am an "older" adult who is finally understanding what is important and not important in this life.',
+       'I am an outgoing, sensitive, fun, creative and active person.',
+       "Family is the essence of what makes me me. Without them, I'd be at a total loss."],
+      'worry'),
+     (['Person 20',
+       "I'm a 30 year old married man with a 2 year old daughter.",
+       "I'm hard working, determined, goal oriented, relaxed and down to earth.",
+       'My ability to get along well with almost anyone is what makes me Me.'],
+      'worry'),
+     (['Person 21',
+       'I am an untraditional college student who is employed full time.',
+       "I am an agreeable person who doesn't like to be bothered with others.",
+       'I am an introvert who is happy to pass the time by myself.'],
+      'love'),
+     (['Person 22',
+       'A courteous femal',
+       'Friendly and full of energy.',
+       'Family is making me to smile and be happy.'],
+      'happiness'),
+     (['Person 23',
+       'A 52 year old married woman',
+       'Fun, outgoing, and social.',
+       'I am always willing to lend a hand or give a listening ear.'],
+      'happiness'),
+     (['Person 24',
+       'I am a 25 year old American woman',
+       'I am introverted but also very nice and like to learn',
+       'I try to make other people around me happy and try to make the world a better place to liv'],
+      'happiness'),
+     (['Person 25',
+       'I am a mom and a wife.',
+       'I am pretty boring and quiet.',
+       'My love for my husband.'],
+      'love'),
+     (['Person 26',
+       '28 year old mal',
+       'ntellegent and s',
+       'like to think about everything'],
+      'worry'),
+     (['Person 27',
+       'n inquisitive person',
+       'friendly and approachab',
+       'desire to always learn new thing'],
+      'worry'),
+     (['Person 28',
+       'I am donald, I am a 25 year old married man, working full time as a social media manager.',
+       'I am a friendly person, I like the outdoors, and going on adventures with my friends and family.',
+       'I am warm hearted individual, I am very kind, I love everyone and try never to judge anyone, I put others before myself.'],
+      'love'),
+     (['Person 29',
+       "I'm an average guy. A father, husband, brother, employee and friend. I am much like any other guy.",
+       "I'm pretty down to earth. I like to laugh and play video games but I can be serious when I need to be serious.",
+       'I think what makes me me is that I am very open-minded as a person. I believe in forming my own opinions rather than just taking things at face value. I like to learn and experience things rather than be told how things are.'],
+      'worry'),
+     (['Person 30',
+       "I'm a man who loves his wife very much.",
+       "I'm loyal, devoted and always trying to do best in order to support our family.",
+       'Faith and strong will to pursue my hopes and dreams makes me to push through the day.'],
+      'love'),
+     (['Person 31',
+       'I am a 43 old mother of two young boys under 7. I am am only child. I will be married for 9years in june.',
+       'I am an honest person. I am very disorganized and tend to be a half full person. I am loyal.',
+       'I have been created by God and uniquely created . My life experiences have made me me.'],
+      'love'),
+     (['Person 32',
+       'I am a woman, a wife, a mother of 4.',
+       'I am introverted, quiet, compassionate, impractical, prone to depression.',
+       'I love to write.'],
+      'love'),
+     (['Person 33',
+       "I'm a wife and mother of 5 children.",
+       'I am introverted, honest and generous.',
+       'My Catholic faith is a big part of who I am and how I live my life.'],
+      'love'),
+     (['Person 34',
+       'im a strong independent person.',
+       'm kind and warm hearted.',
+       'persoanility makes me who i am.'],
+      'worry'),
+     (['Person 35',
+       "I'm a mom of 3 children.",
+       'I am an outgoing, fun person who likes to go out and be social.',
+       'I am sincere, honest, and a good friend.  I am caring to others, especially my close friends!'],
+      'happiness'),
+     (['Person 36',
+       'Someone who is calm, peaceful and stays relaxed under pressure.',
+       'I am nice, kind and funny but usually quiet.',
+       'I am caring, and I feel the need to help others.'],
+      'worry'),
+     (['Person 37', "I'm a loving and caring mom.", 'Fun, original, happ', 'M'],
+      'love'),
+     (['Person 38',
+       'I am a teacher of ESL',
+       'I love my husband and our dog, and want to be a mom, even though we are currently struggling with a miscarriage after 2 years of infertility treatments.',
+       'Right now, humor and talking to my friends in my infertility support group, as well as hanging out and taking pictures of my dog and husband.'],
+      'love'),
+     (['Person 39',
+       "I'm a cat lover who's kind of weird, but smart and funny.",
+       "I'm relaxed and love animals.",
+       'I have kind of a weird take on things.'],
+      'love'),
+     (['Person 40',
+       'i am a hard working smart femal',
+       'm funny yet clever and warm',
+       'love for animals and other'],
+      'love'),
+     (['Person 41',
+       "I'm just a nice guy trying to be loving to others and find his way in the world.",
+       "I'm nerdy, intelligent, and funny.",
+       "I'm nobody special, but I do value my individuality and I love artistic expression."],
+      'love'),
+     (['Person 42',
+       'I am a wife, mother, and college student.',
+       'I am a loving, smart, fun, caring person . I love to sing, write, do crafts, art and whatever else I can do to help uplift others.',
+       'My personality and humor. But more importantly my big heart.'],
+      'love'),
+     (['Person 43',
+       'I am funny.',
+       'I am easy going.',
+       'I have a great personality.'],
+      'happiness'),
+     (['Person 44',
+       'nry johnson',
+       'stern,friendly,loving,strong of mind,family oriented,good worker,always looking forward within memories of the pas',
+       'loving all the members of my faily,past and pr'],
+      'love'),
+     (['Person 45',
+       'I am a daughter, sister, friend, and advocat',
+       "I advocate for those who don't have a voic",
+       'I care so deeply about children involved in the system and I will do almost anything to help them!'],
+      'worry'),
+     (['Person 46',
+       'I am a mom, wife, educator, sister, and daughter.',
+       "I'm an introverted extrovert. I love to be on stage and the center of attention, but I hate small talk.",
+       'I am my own unique person who has never been known to follow a crowd.'],
+      'love'),
+     (['Person 47',
+       'I am a mother, friend, and wif',
+       'I am active, adventurous, and hardwarling.',
+       'My values and principals.'],
+      'neutral'),
+     (['Person 48',
+       'I am a soul that currently has the role of wife, mother, daughter, sister, and friend.',
+       "I'm an introspective, introverted individual who cherishes both family time and alone time.",
+       'My quick wit, warm smile, and love of laughter make me who I am.'],
+      'love'),
+     (['Person 49',
+       'I am a working mom.',
+       'I am calm, determined, and loving.',
+       'The essence of what makes me is my compassion and caring.'],
+      'love'),
+     (['Person 50',
+       'I am a 27 year old special education teacher who lives in California.',
+       'I am a sociable and very goofy young guy who likes to make everyone laugh.',
+       'The essence of what makes me myself is that I am always generally positive and like to spread a smile to all those around me!'],
+      'happiness')]
