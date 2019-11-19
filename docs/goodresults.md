@@ -83,7 +83,7 @@ for i in os.listdir('../FinalOutputs/essence'):
 <table><tr><td><img src='../FinalOutputs/essence/essence-33.jpg'></td></tr></table>
 
 
-    ['mom wife', 'boring quiet', 'love husband'] 
+    ['married', 'social', 'lend']
 
 
 
