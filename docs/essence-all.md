@@ -5,30 +5,6 @@ title: Essence - All Results
 
 Using all 50 answers for TF-IDF.
 
-```python
-from IPython.display import Image, display, HTML
-```
-
-
-```python
-desc_emotions = []
-k = 0
-for i in desc_array:
-    desc_emotions.append((i, lbl_enc.classes_[desc_emotion_pred[k]]))
-    k += 1
-```
-
-```python
-# for i in range(50):
-#     print(desc_array[i])
-#     print(top3_all[i], '\n')
-#     image1 = jpg_dir + top3_all[i][0] + '.jpg'
-#     image2 = jpg_dir + top3_all[i][1] + '.jpg'
-#     image3 = jpg_dir + top3_all[i][2] + '.jpg'
-#     output = '../EssenceOutputs/essence-' + str(i) + '.jpg'
-#     display(HTML("<table><tr><td><img src='"+ image1 + "'></td><td><img src='" + image2 + "'></td><td><img src='"+ image3 + "'></td><td></td><td><img src='"+ output + "'></td></tr></table>"))
-```
-
     ['Person 1', 'I am a 28-year-old woman living in Massachusetts.', "I'm neurotic and eccentric but good at heart.", 'I am obsessed with rabbits and love technology.']
     ['living', 'obsessed', 'rabbits'] 
     

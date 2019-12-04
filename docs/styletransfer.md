@@ -3,51 +3,6 @@ layout: page
 title: Style Transfer
 ---
 
-
-```
-# !pip install tensorflow==1.8.0
-```
-
-
-```
-# !pip install tensorflow-gpu==1.8.0
-```
-
-
-```
-# !wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
-# !dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
-# !apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
-# !apt-get update
-# !apt-get install cuda=9.0.176-1
-```
-
-
-```
-# !nvcc --version
-```
-
-    nvcc: NVIDIA (R) Cuda compiler driver
-    Copyright (c) 2005-2017 NVIDIA Corporation
-    Built on Fri_Sep__1_21:08:03_CDT_2017
-    Cuda compilation tools, release 9.0, V9.0.176
-
-
-
-```
-# !pip install scipy==1.1.0
-```
-
-
-```
-from google.colab import drive
-drive.mount('/content/drive')
-```
-
-    Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
-
-
-
 ```
 from __future__ import print_function
 from __future__ import division
@@ -73,30 +28,6 @@ from tensorflow.python.keras._impl.keras.utils.data_utils import get_file
 from tensorflow.python.keras._impl.keras.utils.layer_utils import convert_all_kernels_in_model
 from tensorflow.python.keras._impl.keras.applications.vgg16 import VGG16
 ```
-
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      _np_qint8 = np.dtype([("qint8", np.int8, 1)])
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:521: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      _np_qint16 = np.dtype([("qint16", np.int16, 1)])
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:522: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      _np_qint32 = np.dtype([("qint32", np.int32, 1)])
-    /usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-      np_resource = np.dtype([("resource", np.ubyte, 1)])
-
-
-
-<p style="color: red;">
-The default version of TensorFlow in Colab will soon switch to TensorFlow 2.x.<br>
-We recommend you <a href="https://www.tensorflow.org/guide/migrate" target="_blank">upgrade</a> now 
-or ensure your notebook will continue to use TensorFlow 1.x via the <code>%tensorflow_version 1.x</code> magic:
-<a href="https://colab.research.google.com/notebooks/tensorflow_version.ipynb" target="_blank">more info</a>.</p>
-
-
-
 
 ```
 import warnings

@@ -3,16 +3,6 @@ layout: page
 title: Good Results (Essence + Style)
 ---
 
-
-```python
-for i in os.listdir('../FinalOutputs/essence'):
-    print(i)
-    image1 = '../FinalOutputs/essence/' + i
-#     number = int(i.split('.')[0].split('-')[-1])
-#     print(top3_each[number])
-    display(HTML("<table><tr><td><img src='"+ image1 + "'></td></tr></table>"))
-```
-
 	['skydiver', 'love life', 'intelligent'] 
 
 
@@ -92,16 +82,6 @@ for i in os.listdir('../FinalOutputs/essence'):
 
 ## Style Outputs
 
-
-```python
-for i in os.listdir('../FinalOutputs/essence-style'):
-    image1 = '../FinalOutputs/essence-style/' + i
-#     number = int(i.split('.')[0].split('-')[-1])
-#     print(top3_each[number])
-    display(HTML("<table><tr><td><img src='"+ image1 + "'></td></tr></table>"))
-```
-
-
 <table><tr><td><img src='../FinalOutputs/essence-style/essence-22-floral.png'></td></tr></table>
 
 
@@ -147,9 +127,3 @@ for i in os.listdir('../FinalOutputs/essence-style'):
 
 
 <table><tr><td><img src='../FinalOutputs/essence-style/essence-10-bw.png'></td></tr></table>
-
-
-
-```python
-
-```

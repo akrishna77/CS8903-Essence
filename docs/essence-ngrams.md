@@ -5,25 +5,6 @@ title: Essence - ngrams
 
 Taking uni & bigrams into consideration for TF-IDF.
 
-```python
-for i in range(50):
-    print(desc_array[i])
-    print(top3_each[i], '\n')
-    if ' ' in top3_each[i][0]:
-        image1 = jpg_dir + top3_each[i][0].split(' ')[-1] + '.jpg'
-    else:
-        image1 = jpg_dir + top3_each[i][0] + '.jpg'
-    if ' ' in top3_each[i][1]:
-        image2 = jpg_dir + top3_each[i][1].split(' ')[-1] + '.jpg'
-    else:
-        image2 = jpg_dir + top3_each[i][1] + '.jpg'
-    if ' ' in top3_each[i][2]:
-        image3 = jpg_dir + top3_each[i][2].split(' ')[-1] + '.jpg'
-    else:
-        image3 = jpg_dir + top3_each[i][2] + '.jpg'
-    output = '../EssenceOutputs-ngrams/essence-' + str(i) + '.jpg'
-    display(HTML("<table><tr><td><img src='"+ image1 + "'></td><td><img src='" + image2 + "'></td><td><img src='"+ image3 + "'></td><td></td><td><img src='"+ output + "'></td></tr></table>"))
-```
 
     ['Person 1', 'I am a 28-year-old woman living in Massachusetts.', "I'm neurotic and eccentric but good at heart.", ' I am obsessed with rabbit and love technology.']
     ['living massachusetts', 'eccentric good', 'rabbit'] 
@@ -474,8 +455,3 @@ for i in range(50):
 
 <table><tr><td><img src='../NounProjectOutputs/jpg_images/education.jpg'></td><td><img src='../NounProjectOutputs/jpg_images/guy.jpg'></td><td><img src='../NounProjectOutputs/jpg_images/generally.jpg'></td><td></td><td><img src='../EssenceOutputs-ngrams/essence-49.jpg'></td></tr></table>
 
-
-
-```python
-
-```

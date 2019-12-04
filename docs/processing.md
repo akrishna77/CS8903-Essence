@@ -7,35 +7,6 @@ title: Processing
 
 
 ```python
-import pandas as pd
-from itertools import groupby
-```
-
-
-```python
-descriptions =[]
-
-with open("how_people_describe_themselves.txt","r")  as f:
-    for i in f:
-        descriptions.append(i.rstrip('\n'))
-```
-
-
-```python
-desc_array = [list(group) for k, group in groupby(descriptions, lambda x: x == ' ') if not k]
-    
-```
-
-
-```python
-for i in desc_array:
-    i[1] = i[1].strip('Who you are: ')
-    i[2] = i[2].strip('What you are like: ')
-    i[3] = i[3].strip('What is the essence of what makes you YOU: ')
-```
-
-
-```python
 df = pd.DataFrame(desc_array, columns=['person', 'who', 'likes', 'essence'])
 df[:10]
 ```
@@ -146,42 +117,6 @@ df[:10]
 
 ## NLP
 
-
-```python
-import nltk
-from nltk.corpus import stopwords
-from spellchecker import SpellChecker
-
-nltk.download('stopwords')
-spell = SpellChecker()
-```
-
-    [nltk_data] Downloading package stopwords to
-    [nltk_data]     /Users/akrishna/nltk_data...
-    [nltk_data]   Package stopwords is already up-to-date!
-
-
-
-```python
-def preprocess(text):
-    """Pre-processes the text, splits into tokens that are lower-cased, filtered and lemmatized."""
-    tokens = (t.lower() for t in nltk.word_tokenize(text)
-                            if t.isalpha()
-                            and t.lower() not in stopwords.words())
-
-    # wordnet_lemmatizer = nltk.WordNetLemmatizer()
-    return [spell.correction(t) for t in tokens]
-```
-
-
-```python
-pos_tagged_desc = []
-for i in desc_array:
-    x = [nltk.pos_tag(preprocess(i[1])), nltk.pos_tag(preprocess(i[2])), nltk.pos_tag(preprocess(i[3]))]
-    pos_tagged_desc.append(x)
-```
-
-
 ```python
 pos_tagged_desc[0]
 ```
@@ -195,19 +130,6 @@ pos_tagged_desc[0]
       ('rabbits', 'NNS'),
       ('love', 'VBP'),
       ('technology', 'NN')]]
-
-
-
-
-```python
-descriptors = []
-for i in pos_tagged_desc:
-    s = ""
-    for j in i:
-        for k in j:
-            s += k[0]+" "
-    descriptors.append(s)
-```
 
 
 ```python
@@ -227,18 +149,10 @@ descriptors[:5]
 
 ## TF-IDF
 
-
-```python
-from sklearn.feature_extraction.text import TfidfVectorizer
-```
-
 #### For each description as a document
 
 
 ```python
-vectorizer = TfidfVectorizer(use_idf=True)
-X = vectorizer.fit_transform(descriptors)
-
 df_idf = pd.DataFrame(X[0].T.todense(), index=vectorizer.get_feature_names(),columns=["idf_weights"]).sort_values('idf_weights', ascending=False)[:20]
 df_idf.sort_values(by=['idf_weights'], ascending=False)[:10]
 ```
@@ -315,41 +229,6 @@ df_idf.sort_values(by=['idf_weights'], ascending=False)[:10]
 
 
 #### For each of the questions as a document
-
-
-```python
-who = []
-likes = []
-essence = []
-for i in range(len(pos_tagged_desc)):
-        who.append(pos_tagged_desc[i][0])
-        likes.append(pos_tagged_desc[i][1])
-        essence.append(pos_tagged_desc[i][2])
-```
-
-
-```python
-who_list = []
-for i in who:
-    s = ""
-    for j in i:
-            s += j[0]+" "
-    who_list.append(s)
-    
-likes_list = []
-for i in likes:
-    s = ""
-    for j in i:
-            s += j[0]+" "
-    likes_list.append(s)
-    
-essence_list = []
-for i in essence:
-    s = ""
-    for j in i:
-            s += j[0]+" "
-    essence_list.append(s)
-```
 
 
 ```python
@@ -506,32 +385,7 @@ df_idf.sort_values(by=['idf_weights'], ascending=False)[:3]
 </div>
 
 
-
-## RAKE
-
-
-```python
-# !pip install rake-nltk
-```
-
-
-```python
-from rake_nltk import Rake, Metric
-
-r = Rake(ranking_metric=Metric.DEGREE_TO_FREQUENCY_RATIO)
-r.extract_keywords_from_text(desc_array[0][1])
-r.get_ranked_phrases()
-```
-
 ## Top-3
-
-
-```python
-top3 = []
-for i in X:
-    top3_desc = pd.DataFrame(i.T.todense(), index=vectorizer.get_feature_names(),columns=["idf_weights"]).sort_values('idf_weights', ascending=False)
-    top3.append(top3_desc.index[:3].tolist())
-```
 
 
 ```python
@@ -553,23 +407,6 @@ top3[:5]
 
 
 ```python
-import requests, json
-from requests_oauthlib import OAuth1
-from PIL import Image
-import urllib.request
-import os
-```
-
-
-```python
-png_dir = 'NounProjectOutputs/png_images/'
-jpg_dir = 'NounProjectOutputs/jpg_images/'
-```
-
-
-```python
-auth = OAuth1("1aac7c276b39401f9f042c53e8f8e5d6", "38b8f9bf4a074812918528889a076fa1")
-
 not_found = []
 no_icon_url = []
 
@@ -592,36 +429,13 @@ for search_terms in top3:
         urllib.request.urlretrieve(icon_url, png_dir + search_term + ".png")
 ```
 
-
-```python
-def png2jpg(image_path):
-    image = Image.open('NounProjectOutputs/png_images/' + image_path).convert("RGBA")
-    new_image = Image.new("RGBA", image.size, "WHITE")
-    new_image.paste(image, (0, 0), image)
-    new_image.convert('RGB').save(jpg_dir + image_path.split('.')[0] + '.jpg', "JPEG") 
-```
-
-
-```python
-for pngFile in os.listdir('NounProjectOutputs/png_images/'):
-    png2jpg(pngFile)
-```
-
 ## Layout
 
 
 ```python
-import math
-from PIL import Image
 
 def arrangeImagesInCircle(masterImage, imagesToArrange, radius):
     imgWidth, imgHeight = masterImage.size
-
-#     diameter = min(
-#         imgWidth  - max(img.size[0] for img in imagesToArrange),
-#         imgHeight - max(img.size[1] for img in imagesToArrange)
-#     )
-#     radius = diameter / 2
 
     circleCenterX = imgWidth  / 2
     circleCenterY = imgHeight / 2
@@ -638,103 +452,10 @@ def arrangeImagesInCircle(masterImage, imagesToArrange, radius):
         masterImage.paste(curImg, pos, mask=curImg)
 ```
 
-
-```python
-pngFilenames = [[png_dir + search_term + '.png' for search_term in search_terms if search_term not in not_found] for search_terms in top3]
-```
-
-
-```python
-jpgFilenames = [[jpg_dir + search_term + '.jpg' for search_term in search_terms if search_term not in not_found] for search_terms in top3]
-```
-
-
-```python
-for i in range(50):
-    img = Image.new("RGB", (600,600), "WHITE")
-
-    images = [Image.open(filename) for filename in pngFilenames[i]]
-    arrangeImagesInCircle(img, images, 100)
-
-    img.convert('RGB').save("EssenceOutputs/essence-" + str(i) + ".jpg", "JPEG")
-```
-
 ## Detect Mood
 
 
 ```python
-import pandas as pd
-import numpy as np
-from nltk.corpus import stopwords
-import re
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import accuracy_score
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import SGDClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-```
-
-
-```python
-data = pd.read_csv('text_emotion.csv')
-
-# sentiment_list = ['anger', 'boredom', 'empty', 'enthusiasm', 'fun', 'happiness', 
-#                   'hate', 'love', 'neutral', 'relief', 'sadness', 'surprise', 'worry']
-
-data = data.drop('author', axis=1)
-data = data.drop(data[data.sentiment == 'boredom'].index)
-data = data.drop(data[data.sentiment == 'empty'].index)
-data = data.drop(data[data.sentiment == 'fun'].index)
-data = data.drop(data[data.sentiment == 'relief'].index)
-data = data.drop(data[data.sentiment == 'surprise'].index)
-data = data.drop(data[data.sentiment == 'sadness'].index)
-data = data.drop(data[data.sentiment == 'fun'].index)
-data = data.drop(data[data.sentiment == 'enthusiasm'].index)
-
-# Making all letters lowercase
-data['content'] = data['content'].apply(lambda x: " ".join(x.lower() for x in x.split()))
-
-# Removing Punctuation, Symbols
-data['content'] = data['content'].str.replace('[^\w\s]',' ')
-
-# Removing Stop Words using NLTK
-stop = stopwords.words('english')
-data['content'] = data['content'].apply(lambda x: " ".join(x for x in x.split() if x not in stop))
-
-# #Lemmatisation
-# data['content'] = data['content'].apply(lambda x: " ".join([Word(word).lemmatize() for word in x.split()]))
-#Correcting Letter Repetitions
-
-def de_repeat(text):
-    pattern = re.compile(r"(.)\1{2,}")
-    return pattern.sub(r"\1\1", text)
-
-data['content'] = data['content'].apply(lambda x: " ".join(de_repeat(x) for x in x.split()))
-
-# Code to find the top 10,000 rarest words appearing in the data
-freq = pd.Series(' '.join(data['content']).split()).value_counts()[-10000:]
-
-# Removing all those rarely appearing words from the data
-freq = list(freq.index)
-data['content'] = data['content'].apply(lambda x: " ".join(x for x in x.split() if x not in freq))
-
-#Encoding output labels 'sadness' as '1' & 'happiness' as '0'
-lbl_enc = preprocessing.LabelEncoder()
-y = lbl_enc.fit_transform(data.sentiment.values)
-
-# Splitting into training and testing data in 90:10 ratio
-X_train, X_val, y_train, y_val = train_test_split(data.content.values, y, stratify=y, random_state=42, test_size=0.1, shuffle=True)
-
-# Extracting TF-IDF parameters
-# tfidf = TfidfVectorizer(max_features=1000, analyzer='word',ngram_range=(1,3))
-# X_train_tfidf = tfidf.fit_transform(X_train)
-# X_val_tfidf = tfidf.fit_transform(X_val)
-
-# Extracting Count Vectors Parameters
 count_vect = CountVectorizer(analyzer='word')
 count_vect.fit(data['content'])
 X_train_count =  count_vect.transform(X_train)
@@ -767,10 +488,10 @@ y_pred = lsvm.predict(X_val_count)
 print('lsvm using count vectors accuracy %s' % accuracy_score(y_pred, y_val))
 
 # Model 2: Logistic Regression
-logreg = LogisticRegression(C=1)
-logreg.fit(X_train_count, y_train)
-y_pred = logreg.predict(X_val_count)
-print('log reg count vectors accuracy %s' % accuracy_score(y_pred, y_val))
+# logreg = LogisticRegression(C=1)
+# logreg.fit(X_train_count, y_train)
+# y_pred = logreg.predict(X_val_count)
+# print('log reg count vectors accuracy %s' % accuracy_score(y_pred, y_val))
 ```
 
     lsvm using count vectors accuracy 0.5070677781805002
@@ -789,11 +510,6 @@ print(desc_emotion_pred)
     [3 3 4 3 5 5 4 1 5 3 3 4 3 4 4 1 3 5 5 5 3 1 1 1 3 5 5 3 5 3 3 3 3 5 1 5 3
      3 3 3 3 3 1 3 5 3 4 3 3 1]
 
-
-
-```python
-from IPython.display import Image, display, HTML
-```
 
 
 ```python

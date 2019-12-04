@@ -5,17 +5,6 @@ title: Essence - Old Results
 
 TF-IDF without spell correction (somewhat decent results)!
 
-```python
-for i in range(50):
-    print(desc_array[i])
-    print(top3_all[i], '\n')
-    image1 = jpg_dir + top3_all[i][0] + '.jpg'
-    image2 = jpg_dir + top3_all[i][1] + '.jpg'
-    image3 = jpg_dir + top3_all[i][2] + '.jpg'
-    output = '../OldEssenceOutputs/essence-' + str(i) + '.jpg'
-    display(HTML("<table><tr><td><img src='"+ image1 + "'></td><td><img src='" + image2 + "'></td><td><img src='"+ image3 + "'></td><td></td><td><img src='"+ output + "'></td></tr></table>"))
-```
-
     ['Person 1', 'I am a 28-year-old woman living in Massachusetts.', "I'm neurotic and eccentric but good at heart.", 'I am obsessed with rabbits and love technology.']
     ['technology', 'obsessed', 'massachusetts'] 
     
@@ -464,9 +453,3 @@ for i in range(50):
 
 
 <table><tr><td><img src='../NounProjectOutputs/jpg_images/goofy.jpg'></td><td><img src='../NounProjectOutputs/jpg_images/generally.jpg'></td><td><img src='../NounProjectOutputs/jpg_images/spread.jpg'></td><td></td><td><img src='../OldEssenceOutputs/essence-49.jpg'></td></tr></table>
-
-
-
-```python
-
-```
